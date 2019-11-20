@@ -25,8 +25,8 @@ function UserInfo(props) {
     <div className="max-w-md overflow-hidden m-4 md:flex flex-wrap bg-white rounded-lg p-6 shadow-md">
       <img
         className="h-16 w-16 md:h-24 md:w-24 rounded-full mx-auto md:mx-0 md:mr-6"
-        src={data.user.avatarUrl}
         alt="user avatar"
+        src={data.user.avatarUrl}
       />
       <div className="text-center md:text-left">
         <h2 className="text-lg">{data.user.name}</h2>
