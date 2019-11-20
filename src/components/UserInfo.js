@@ -31,7 +31,11 @@ function UserInfo(props) {
       <div className="text-center md:text-left">
         <h2 className="text-lg">{data.user.name}</h2>
         <div className="text-purple-500">{data.user.login}</div>
-        <div className="text-lg mt-1 text-gray-600">{data.user.bio}</div>
+        <div className="text-lg mt-1 text-gray-600">
+          {data.user.login === "jeremylivingston"
+            ? "I'm the jQuery champion, yeah"
+            : data.user.bio}
+        </div>
       </div>
     </div>
   );
