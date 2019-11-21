@@ -5,6 +5,7 @@ import FindUser from "./components/FindUser";
 function App() {
   const [logins, setLogins] = useState([
     "AndersonZacharyT",
+    "stacie23",
     "afulton12",
     "topherjaynes",
     "hgeary",
