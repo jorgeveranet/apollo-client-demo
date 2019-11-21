@@ -24,7 +24,7 @@ function FindUser(props) {
           aria-label="github-login"
         />
         <input
-          className="flex-shrink-0 bg-purple-700 hover:bg-purple-500 border-purple-700 hover:border-purple-500 text-sm border-4 text-white py-1 px-2 mr-2 rounded"
+          className="flex-shrink-0 bg-purple-700 hover:bg-purple-500 border-purple-700 hover:border-purple-500 text-sm border-4 text-white py-1 px-2 mr-2 rounded cursor-pointer"
           type="submit"
           value="Find"
         />
