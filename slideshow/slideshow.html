@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Apollo state management</title>
+    <meta charset="utf-8">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+      body { font-family: 'Droid Serif'; }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, middle
+
+# Apollo state management
+Jorge Vera
+
+---
+
+class: center, middle
+
+# Goal
+Help you understand the link between Hooks, Graphql/Apollo Client and the app state!
+
+---
+
+class: center, middle
+
+# Demo
+https://github.com/jorgeveranet/apollo-client-demo
+
+---
+
+class: center, middle
+
+# Agenda
+
+What is state?
+
+Types of states
+
+What is a Hook
+
+Apollo Graphql & Why Apollo Client?
+
+Apollo Client 3.0.0-beta
+
+Apollo Hooks
+
+---
+
+class: center, middle
+
+# state
+
+Plain JavaScript object that hold information that influences the output of render.
+
+---
+
+class: center, middle
+
+# state => view
+
+---
+
+class: center, middle
+
+# Types of states
+
+local | global
+
+***
+
+local | shared | remote | meta-state | router
+
+---
+
+class: center, middle
+
+# Different ways of managing state
+
+React Component state
+
+ContextAPI
+
+Redux
+
+Mobx
+
+mobx-state-tree
+
+***Hooks***
+
+***Apollo Client***
+
+---
+
+class: center, middle
+
+# What is a Hook
+Hooks are a new addition in React 16.8. They let you use state and other React features without writing a class.
+
+Hooks are functions that let you “hook into” React state and lifecycle features from function components. Hooks don’t work inside classes.
+
+---
+
+# useState
+
+```js
+import React, { useState } from "react";
+import UserList from "./components/UserList";
+import FindUser from "./components/FindUser";
+
+function App() {
+  const [logins, setLogins] = useState([
+    "AndersonZacharyT",
+    "afulton12",
+    "topherjaynes",
+    "hgeary",
+    "goranb"
+  ]);
+
+  const handleLoginChange = login =>
+    setLogins([...new Set([...logins, login])]);
+
+  return (
+    <>
+      <FindUser onLoginChange={handleLoginChange} />
+      <UserList logins={logins} />
+    </>
+  );
+}
+
+export default App;
+
+```
+---
+
+# UserList - pure component
+
+```js
+import React from "react";
+import UserInfo from "./UserInfo";
+
+function UserList(props) {
+  return (
+    <div className="flex flex-wrap -mb-4 m-16">
+      {props.logins.map(login => (
+        <UserInfo key={login} login={login} />
+      ))}
+    </div>
+  );
+}
+
+export default UserList;
+```
+
+---
+
+class: center, middle
+
+### Apollo Graphql
+
+Company and a platform focused on making application development easier, better, and accessible to more people. 
+
+Building open source tools and commercial services!
+
+The industry-standard GraphQL implementation.
+
+---
+
+class: center, middle
+
+# Why Apollo Client?
+
+simplicity | declarative | no boilerplate
+
+https://www.apollographql.com/docs/react/v3.0-beta/why-apollo/
+
+---
+
+### Declarative data fetching
+The logic for retrieving your data, tracking loading and error states, and updating your UI is encapsulated by the useQuery Hook:
+
+```js
+import { gql, useQuery } from "@apollo/client";
+
+const GET_USER = gql`
+  query getUser($login: String!) {
+    user(login: $login) {
+      login
+      name
+      bio
+      avatarUrl(size: 640)      
+    }
+  }
+`;
+
+function UserInfo(props) {
+  const { loading, error, data } = useQuery(GET_USER, {
+    variables: { login: props.login }
+  });
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error :(</p>;
+
+  return (
+    <h2>{data.user.name}</h2>
+  )
+}
+```
+
+---
+
+### Zero-config and normalized cache
+
+```js
+import {
+  ApolloClient,
+  HttpLink,
+  InMemoryCache,
+  ApolloProvider
+} from "@apollo/client";
+
+const client = new ApolloClient({
+  link: new HttpLink({
+    uri: "https://api.github.com/graphql",
+    headers: {
+      Authorization: localStorage.getItem("token")
+    }
+  }),
+  cache: new InMemoryCache({
+    typePolicies: {
+      User: {
+        keyFields: ["login"]
+      }
+    }
+  })
+});
+
+ReactDOM.render(
+  <ApolloProvider client={client}>
+    <App />
+  </ApolloProvider>,
+  document.getElementById("root")
+);
+```
+
+---
+
+class: middle
+
+# Apollo Client Hooks
+React hooks functionality is included in the Apollo Client bundle.
+
+```js
+import {  
+  ApolloProvider,
+  useQuery,
+  useLazyQuery,
+  useMutation
+} from "@apollo/client";
+```
+
+https://www.apollographql.com/docs/react/v3.0-beta/api/react-hooks/
+---
+
+    </textarea>
+    <script src="https://remarkjs.com/downloads/remark-latest.min.js">
+    </script>
+    <script>
+      var slideshow = remark.create();
+    </script>
+  </body>
+</html>
