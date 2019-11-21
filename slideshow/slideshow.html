@@ -56,6 +56,8 @@ Apollo Client 3.0.0-beta
 
 Apollo Hooks
 
+Local state management
+
 ---
 
 class: center, middle
@@ -257,21 +259,103 @@ ReactDOM.render(
 
 ---
 
+### Local state management
+
+```js
+import React from "react";
+import { gql, useQuery } from "@apollo/client";
+import UserInfo from "./UserInfo";
+
+const GET_SELECTED_USER = gql`
+  {
+    selectedUser @client
+  }
+`;
+
+function UserSelect(props) {
+  const { data, client } = useQuery(GET_SELECTED_USER);
+
+  const handleClick = () =>
+    client.writeData({ data: { selectedUser: props.login } });
+
+  return (
+    <UserInfo
+      login={props.login}
+      onClick={handleClick}
+      isSelected={data && data.selectedUser === props.login}
+    />
+  );
+}
+
+export default UserSelect;
+```
+
+---
+
+class: middle
+
+# Apollo Client 3.0.0-beta
+
+```json
+"dependencies": {
+  "@apollo/client": "^3.0.0-beta.10",
+  "graphql": "^14.5.8",
+  "react": "^16.12.0",
+  "react-dom": "^16.12.0",
+  "react-scripts": "3.2.0"
+},
+```
+
+---
+
 class: middle
 
 # Apollo Client Hooks
 React hooks functionality is included in the Apollo Client bundle.
 
 ```js
-import {  
-  ApolloProvider,
+import {
   useQuery,
   useLazyQuery,
-  useMutation
+  useMutation,
+  useApolloClient
 } from "@apollo/client";
 ```
 
 https://www.apollographql.com/docs/react/v3.0-beta/api/react-hooks/
+---
+
+# Wrap Up
+Apollo Client is a complete state management library for JavaScript apps
+
+- ***Declarative data fetching***: Write a query and receive data without manually tracking loading states
+
+- ***Excellent developer experience***: Enjoy helpful tooling for TypeScript, Chrome DevTools, and VS Code
+
+- ***Designed for modern React***: Take advantage of the latest React features, such as hooks
+
+- ***Community driven:*** Share knowledge with thousands of developers, thanks to our active open source community
+
+---
+
+class: center, middle
+
+# What's Next!
+
+Add Tests
+
+TypeScript
+
+More components
+
+Lazy loading
+
+---
+
+class: center, middle
+
+# Thanks!
+
 ---
 
     </textarea>
