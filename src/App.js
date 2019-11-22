@@ -3,14 +3,7 @@ import UserList from "./components/UserList";
 import FindUser from "./components/FindUser";
 
 function App() {
-  const [logins, setLogins] = useState([
-    "AndersonZacharyT",
-    "stacie23",
-    "afulton12",
-    "topherjaynes",
-    "hgeary",
-    "goranb"
-  ]);
+  const [logins, setLogins] = useState(["johnpapa", "samerbuna", "wesbos"]);
 
   const handleLoginChange = login =>
     setLogins([...new Set([...logins, login])]);
