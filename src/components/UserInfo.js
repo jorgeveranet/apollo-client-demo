@@ -32,10 +32,12 @@ function UserInfo(props) {
         alt="user avatar"
         src={data.user.avatarUrl}
       />
-      <div className="text-center md:text-left">
-        <h2 className="text-lg">{data.user.name}</h2>
-        <div className="text-purple-500">{data.user.login}</div>
-        <div className="text-lg mt-1 text-gray-600">{data.user.bio}</div>
+      <div className="text-center md:text-left w-40">
+        <h2 className="text-lg truncate">{data.user.name}</h2>
+        <div className="text-purple-500 truncate">{data.user.login}</div>
+        <div className="text-lg mt-1 text-gray-600 truncate">
+          {data.user.bio}
+        </div>
       </div>
     </div>
   );
