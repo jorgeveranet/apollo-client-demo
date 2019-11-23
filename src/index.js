@@ -23,7 +23,8 @@ const client = new ApolloClient({
         keyFields: ["login"]
       }
     }
-  })
+  }),
+  resolvers: {}
 });
 
 ReactDOM.render(
